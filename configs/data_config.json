@@ -1,0 +1,10 @@
+{
+    "nb_clusters" : 6,
+    "size_min" : 5,
+    "size_max" : 35,
+    "p" : 0.55,
+    "q" : 0.25,
+    "nb_graphs_train" : 1,
+    "nb_graphs_test" : 1000,
+    "nb_graphs_val" : 1
+}

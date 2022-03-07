@@ -1,0 +1,72 @@
+Using backend: pytorch
+  0%|          | 0/100 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/100 [00:00<?, ?it/s]/users/eleves-a/2020/abdellah.el-mrini/graphtransformer/nets/SBMs_node_classification/graph_transformer_net.py:82: UserWarning: This overload of nonzero is deprecated:
+	nonzero()
+Consider using one of the following signatures instead:
+	nonzero(*, bool as_tuple) (Triggered internally at  /opt/conda/conda-bld/pytorch_1595629427478/work/torch/csrc/utils/python_arg_parser.cpp:766.)
+  label_count = label_count[label_count.nonzero()].squeeze()
+Epoch 0:   0%|          | 0/100 [02:31<?, ?it/s, lr=0.0005, test_acc=61.2, time=152, train_acc=58.7, train_loss=0.668, val_acc=61.2, val_loss=0.654]Epoch 0:   1%|          | 1/100 [02:31<4:10:42, 151.94s/it, lr=0.0005, test_acc=61.2, time=152, train_acc=58.7, train_loss=0.668, val_acc=61.2, val_loss=0.654]Epoch 1:   1%|          | 1/100 [02:31<4:10:42, 151.94s/it, lr=0.0005, test_acc=61.2, time=152, train_acc=58.7, train_loss=0.668, val_acc=61.2, val_loss=0.654]Epoch 1:   1%|          | 1/100 [02:46<4:34:48, 166.55s/it, lr=0.0005, test_acc=61.2, time=152, train_acc=58.7, train_loss=0.668, val_acc=61.2, val_loss=0.654]
+cuda available with GPU: Quadro P2200
+[I] Loading dataset SBM_PATTERN...
+train, test, val sizes : 10000 2000 2000
+[I] Finished loading.
+[I] Data load time: 18.0184s
+MODEL DETAILS:
+
+MODEL/Total parameters: GraphTransformer 522742
+Training Graphs:  10000
+Validation Graphs:  2000
+Test Graphs:  2000
+Number of Classes:  2
+Traceback (most recent call last):
+  File "main_SBMs_node_classification.py", line 383, in <module>
+    main()    
+  File "main_SBMs_node_classification.py", line 375, in main
+    train_val_pipeline(MODEL_NAME, dataset, params, net_params, dirs)
+  File "main_SBMs_node_classification.py", line 160, in train_val_pipeline
+    epoch_train_loss, epoch_train_acc, optimizer = train_epoch(model, optimizer, device, train_loader, epoch)
+  File "/users/eleves-a/2020/abdellah.el-mrini/graphtransformer/train/train_SBMs_node_classification.py", line 38, in train_epoch
+    batch_scores = model.forward(batch_graphs, batch_x, batch_e, batch_lap_pos_enc, batch_wl_pos_enc)
+  File "/users/eleves-a/2020/abdellah.el-mrini/graphtransformer/nets/SBMs_node_classification/graph_transformer_net.py", line 69, in forward
+    h = conv(g, h)
+  File "/users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/users/eleves-a/2020/abdellah.el-mrini/graphtransformer/layers/graph_transformer_layer.py", line 119, in forward
+    attn_out = self.attention(g, h)
+  File "/users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/users/eleves-a/2020/abdellah.el-mrini/graphtransformer/layers/graph_transformer_layer.py", line 73, in forward
+    self.propagate_attention(g)
+  File "/users/eleves-a/2020/abdellah.el-mrini/graphtransformer/layers/graph_transformer_layer.py", line 59, in propagate_attention
+    g.send_and_recv(eids, fn.copy_edge('score', 'score'), fn.sum('score', 'z'))
+  File "/users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/dgl/heterograph.py", line 4233, in send_and_recv
+    message_func, reduce_func, apply_node_func)
+  File "/users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/dgl/core.py", line 283, in message_passing
+    ndata = invoke_gspmm(g, mfunc, rfunc)
+  File "/users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/dgl/core.py", line 255, in invoke_gspmm
+    z = op(graph, x)
+  File "/users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/dgl/ops/spmm.py", line 172, in func
+    return gspmm(g, 'copy_rhs', reduce_op, None, x)
+  File "/users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/dgl/ops/spmm.py", line 64, in gspmm
+    lhs_data, rhs_data)
+  File "/users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/dgl/backend/pytorch/sparse.py", line 235, in gspmm
+    return GSpMM.apply(gidx, op, reduce_op, lhs_data, rhs_data)
+  File "/users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/dgl/backend/pytorch/sparse.py", line 64, in forward
+    out, (argX, argY) = _gspmm(gidx, op, reduce_op, X, Y)
+  File "/users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/dgl/sparse.py", line 157, in _gspmm
+    arg_e_nd)
+  File "dgl/_ffi/_cython/./function.pxi", line 287, in dgl._ffi._cy3.core.FunctionBase.__call__
+  File "dgl/_ffi/_cython/./function.pxi", line 232, in dgl._ffi._cy3.core.FuncCall
+  File "dgl/_ffi/_cython/./base.pxi", line 155, in dgl._ffi._cy3.core.CALL
+dgl._ffi.base.DGLError: [16:59:21] /opt/dgl/src/runtime/cuda/cuda_device_api.cc:97: Check failed: e == cudaSuccess || e == cudaErrorCudartUnloading: CUDA: out of memory
+Stack trace:
+  [bt] (0) /users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/dgl/libdgl.so(dmlc::LogMessageFatal::~LogMessageFatal()+0x4f) [0x7fc48d4cda4f]
+  [bt] (1) /users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/dgl/libdgl.so(dgl::runtime::CUDADeviceAPI::AllocDataSpace(DLContext, unsigned long, unsigned long, DLDataType)+0x108) [0x7fc48dcbfe78]
+  [bt] (2) /users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/dgl/libdgl.so(dgl::runtime::NDArray::Empty(std::vector<long, std::allocator<long> >, DLDataType, DLContext)+0x177) [0x7fc48db7eee7]
+  [bt] (3) /users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/dgl/libdgl.so(dgl::aten::NewIdArray(long, DLContext, unsigned char)+0x6d) [0x7fc48d4a590d]
+  [bt] (4) /users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/dgl/libdgl.so(std::pair<dgl::runtime::NDArray, dgl::runtime::NDArray> dgl::aten::impl::Sort<(DLDeviceType)2, long>(dgl::runtime::NDArray)+0xae) [0x7fc48dcedc62]
+  [bt] (5) /users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/dgl/libdgl.so(dgl::aten::Sort(dgl::runtime::NDArray)+0x1ef) [0x7fc48d4b5b3f]
+  [bt] (6) /users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/dgl/libdgl.so(void dgl::aten::impl::COOSort_<(DLDeviceType)2, long>(dgl::aten::COOMatrix*, bool)+0xab) [0x7fc48dd14d5a]
+  [bt] (7) /users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/dgl/libdgl.so(dgl::aten::COOSort_(dgl::aten::COOMatrix*, bool)+0x344) [0x7fc48d4b2394]
+  [bt] (8) /users/eleves-a/2020/abdellah.el-mrini/miniconda3/envs/graph_transformer/lib/python3.7/site-packages/dgl/libdgl.so(dgl::aten::COOSort(dgl::aten::COOMatrix, bool)+0x471) [0x7fc48d4f4aa1]
+
+
