@@ -155,9 +155,6 @@ class DotDict(dict):
         self.update(kwds)
         self.__dict__ = self
 
-if not os.path.isfile(write_file_name+'.json'):
-    with open(write_file_name+'.json', 'w+') as f:
-        json.dump([], f)
         
 params = config['params']
 net_params["batch_size"] = params['batch_size']
@@ -182,6 +179,9 @@ if not os.path.exists(out_dir + 'configs'):
     os.makedirs(out_dir + 'configs')
 dirs = root_log_dir, root_ckpt_dir, write_file_name, write_config_file
 
+if not os.path.isfile(write_file_name+'.json'):
+    with open(write_file_name+'.json', 'w+') as f:
+        json.dump([], f)
 
 net_params['total_param'] = view_model_param(MODEL_NAME, net_params)
 
