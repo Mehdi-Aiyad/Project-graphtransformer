@@ -2,7 +2,7 @@
 **/*.DS_Store
 **/*.ipynb_checkpoints/
 **/__pycache__
-out/
+
 
 gmail.py
 
