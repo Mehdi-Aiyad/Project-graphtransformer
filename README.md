@@ -22,7 +22,7 @@ We propose a generalization of transformer neural network architecture for arbit
 </p>
 
 
-## 1. Repo installation
+## 1. Repository installation
 
 This project is based on the [benchmarking-gnns](https://github.com/graphdeeplearning/benchmarking-gnns) repository.
 
